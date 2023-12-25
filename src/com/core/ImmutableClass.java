@@ -16,7 +16,7 @@ public class ImmutableClass {
         var marks = new HashMap<String, Integer>();
         marks.put("Math", 100);
         marks.put("English", 89);
-        Student s1 = new Student("Sam", new Address("address-1", "address-2"), marks);
+        Student s1 = new Student("Sam", new Student.Address("address-1", "address-2"), marks);
     }
 }
 
@@ -48,24 +48,26 @@ final class Student {
     public HashMap<String, String> getTestMap() {
         return (HashMap<String, String>) marks.clone(); //TODO: Is shallow copy sufficient ?
     }
+
+    static class Address { // static inner class
+        private final String addressLine1;
+
+        private final String addressLine2;
+
+        public Address(String addressLine1, String addressLine2) {
+            this.addressLine1 = addressLine1;
+            this.addressLine2 = addressLine2;
+        }
+
+        public String getAddressLine1() {
+            return addressLine1;
+        }
+
+        public String getAddressLine2() {
+            return addressLine2;
+        }
+
+    }
 }
 
-class Address {
-    private final String addressLine1;
 
-    private final String addressLine2;
-
-    public Address(String addressLine1, String addressLine2) {
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
-    }
-
-    public String getAddressLine1() {
-        return addressLine1;
-    }
-
-    public String getAddressLine2() {
-        return addressLine2;
-    }
-
-}
